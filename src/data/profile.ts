@@ -4,7 +4,9 @@
 export const person = {
   name: "Lakshya Ganglani",
   role: "Data Engineer",
-  tagline: "I build the pipelines that move data others depend on.",
+  tagline: "Data infrastructure that businesses can trust.",
+  subTagline:
+    "I design and operate ETL/ELT systems on Azure that keep data flowing at scale — built for uptime, built to grow.",
   location: "India",
   email: "lakshya.ganglani@gmail.com",
   phone: "+91 9669543892",
@@ -13,6 +15,62 @@ export const person = {
   resumeSummary:
     "Data Engineer at TCS building ETL/ELT pipelines on Azure that process hundreds of millions of records a year. Focused on reliability, automation, and giving business teams data they can trust.",
 };
+
+export const approach = {
+  eyebrow: "Approach",
+  heading: "Infrastructure is a trust problem before it's a technical one.",
+  paragraphs: [
+    "Every dashboard, every forecast, every business decision downstream depends on one quiet assumption: that the data showed up, on time, correct. My job is to make that assumption safe to make.",
+    "That means treating pipelines like production systems, not scripts — monitored, dependency-aware, and built to fail loudly and recover fast rather than fail silently. A 99.5% daily success rate across 100+ pipelines isn't an accident; it's what happens when orchestration and monitoring are first-class citizens, not afterthoughts.",
+    "As data platforms move toward lakehouse architectures like Microsoft Fabric, the same principle holds: scale should never come at the cost of trust. I build for both.",
+  ],
+  forwardNote:
+    "Reliable, well-governed data infrastructure is the layer every AI system eventually depends on. I'm building toward that intersection — deepening into the ML and AI-platform side of data engineering, on the same foundation of pipelines people can trust.",
+};
+
+export type TechMatrixRow = {
+  category: string;
+  tools: { name: string; level: "core" | "working" | "learning" }[];
+};
+
+export const techMatrix: TechMatrixRow[] = [
+  {
+    category: "Cloud & Platform",
+    tools: [
+      { name: "Microsoft Azure", level: "core" },
+      { name: "Azure Data Factory", level: "core" },
+      { name: "Azure Synapse Analytics", level: "core" },
+      { name: "Microsoft Fabric", level: "core" },
+      { name: "Azure Data Lake Storage", level: "core" },
+      { name: "Delta Lake", level: "working" },
+    ],
+  },
+  {
+    category: "Languages & Query",
+    tools: [
+      { name: "Python", level: "core" },
+      { name: "SQL", level: "core" },
+      { name: "C++", level: "working" },
+      { name: "DAX", level: "working" },
+    ],
+  },
+  {
+    category: "Analytics & BI",
+    tools: [
+      { name: "Power BI", level: "core" },
+      { name: "Power Query", level: "core" },
+      { name: "Data Modeling", level: "working" },
+    ],
+  },
+  {
+    category: "ML / AI foundations",
+    tools: [
+      { name: "Pandas", level: "working" },
+      { name: "Scikit-Learn", level: "working" },
+      { name: "NLTK / NLP", level: "learning" },
+    ],
+  },
+];
 
 export type FilterKey = "all" | "pipelines" | "cloud" | "analytics" | "automation";
 

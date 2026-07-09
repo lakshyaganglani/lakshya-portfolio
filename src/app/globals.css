@@ -24,6 +24,9 @@
   --animate-fade-up: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
   --animate-node-in: node-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
   --animate-travel: travel 2.2s linear infinite;
+  --animate-glow: glow 4s ease-in-out infinite;
+  --animate-grid-drift: grid-drift 40s linear infinite;
+  --animate-gradient-shift: gradient-shift 8s ease infinite;
 }
 
 @keyframes pulse-slow {
@@ -50,6 +53,21 @@
   10% { opacity: 1; }
   90% { opacity: 1; }
   100% { offset-distance: 100%; opacity: 0; }
+}
+
+@keyframes glow {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.08); }
+}
+
+@keyframes grid-drift {
+  from { background-position: 0 0; }
+  to { background-position: 56px 56px; }
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
 html {
@@ -106,4 +124,30 @@ body {
 
 .text-balance {
   text-wrap: balance;
+}
+
+/* Gradient text for high-impact hero headline accents */
+.text-gradient {
+  background: linear-gradient(90deg, var(--color-signal), #a5e8d8, var(--color-signal));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: var(--animate-gradient-shift);
+}
+
+/* Soft ambient glow orb, used behind hero/section headers for depth */
+.glow-orb {
+  position: absolute;
+  border-radius: 9999px;
+  background: radial-gradient(circle, var(--color-signal) 0%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+/* Drifting dotted grid — slower, larger, more atmospheric than .bg-grid */
+.bg-grid-drift {
+  background-image: radial-gradient(circle, var(--color-border) 1px, transparent 1px);
+  background-size: 56px 56px;
+  animation: var(--animate-grid-drift);
 }

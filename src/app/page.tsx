@@ -11,11 +11,14 @@ import CountUp from "@/components/CountUp";
 import Magnetic from "@/components/Magnetic";
 import TiltCard from "@/components/TiltCard";
 import StatusTicker from "@/components/StatusTicker";
+import AmbientBackground from "@/components/AmbientBackground";
+import TechMatrix from "@/components/TechMatrix";
 import {
   person,
   stats,
   projects,
   skillGroups,
+  approach,
   type FilterKey,
 } from "@/data/profile";
 
@@ -35,42 +38,46 @@ export default function Home() {
   return (
     <div className="animate-fade-up">
       {/* Hero */}
-      <section className="mb-16">
-        <Eyebrow>{person.role} · Building at TCS</Eyebrow>
-        <h1 className="font-display font-semibold text-4xl sm:text-5xl lg:text-6xl leading-[1.05] text-text text-balance mb-6 max-w-3xl">
-          {person.tagline}
-        </h1>
-        <p className="text-base sm:text-lg text-text-muted max-w-2xl leading-relaxed mb-5">
-          {person.resumeSummary}
-        </p>
-        <div className="mb-8">
-          <StatusTicker />
-        </div>
-        <div className="flex flex-wrap gap-3 mb-12">
-          <Magnetic>
-            <Link
-              href="/projects"
-              className="inline-block rounded-md bg-signal px-5 py-2.5 text-sm font-semibold text-bg hover:bg-signal-dim transition-colors"
-            >
-              View case studies
-            </Link>
-          </Magnetic>
-          <Magnetic strength={0.2}>
-            <Link
-              href="/contact"
-              className="inline-block rounded-md border border-border px-5 py-2.5 text-sm font-semibold text-text hover:border-text-faint transition-colors"
-            >
-              Get in touch
-            </Link>
-          </Magnetic>
-        </div>
+      <section className="relative mb-20 -mx-5 sm:-mx-8 lg:-mx-12 px-5 sm:px-8 lg:px-12 pt-4 pb-4">
+        <AmbientBackground />
+        <div className="relative">
+          <Eyebrow>{person.role} · Building at TCS</Eyebrow>
+          <h1 className="font-display font-semibold text-4xl sm:text-5xl lg:text-7xl leading-[1.05] tracking-tight text-balance mb-6 max-w-4xl">
+            <span className="text-text">Data infrastructure</span>{" "}
+            <span className="text-gradient">businesses can trust.</span>
+          </h1>
+          <p className="text-base sm:text-lg text-text-muted max-w-2xl leading-relaxed mb-5">
+            {person.subTagline}
+          </p>
+          <div className="mb-8">
+            <StatusTicker />
+          </div>
+          <div className="flex flex-wrap gap-3 mb-14">
+            <Magnetic>
+              <Link
+                href="/projects"
+                className="inline-block rounded-md bg-signal px-5 py-2.5 text-sm font-semibold text-bg hover:bg-signal-dim transition-colors"
+              >
+                View case studies
+              </Link>
+            </Magnetic>
+            <Magnetic strength={0.2}>
+              <Link
+                href="/contact"
+                className="inline-block rounded-md border border-border px-5 py-2.5 text-sm font-semibold text-text hover:border-text-faint transition-colors"
+              >
+                Get in touch
+              </Link>
+            </Magnetic>
+          </div>
 
-        <PipelineGraph />
+          <PipelineGraph />
+        </div>
       </section>
 
       {/* Stats strip */}
       <Reveal>
-        <section className="mb-16 grid grid-cols-2 md:grid-cols-4 gap-px rounded-lg overflow-hidden border border-border bg-border">
+        <section className="mb-20 grid grid-cols-2 md:grid-cols-4 gap-px rounded-lg overflow-hidden border border-border bg-border">
           {stats.map((s) => (
             <div key={s.label} className="bg-surface p-5">
               <p className="font-display font-semibold text-2xl sm:text-3xl text-signal mb-1">
@@ -95,7 +102,7 @@ export default function Home() {
       </Reveal>
 
       {/* Filtered skills */}
-      <section className="mb-16">
+      <section className="mb-20">
         <div className="grid sm:grid-cols-2 gap-4">
           {visibleSkillGroups.map((group, i) => (
             <Reveal key={group.group} delay={i * 80}>
@@ -119,9 +126,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Filtered projects preview */}
-      <section>
-        <Eyebrow>Relevant work</Eyebrow>
+      {/* Data Infrastructure & Analytics showcase */}
+      <section className="mb-20">
+        <Eyebrow>Data Infrastructure & Analytics</Eyebrow>
         <div className="flex items-baseline justify-between mb-5">
           <h2 className="font-display font-semibold text-2xl text-text">
             {visibleProjects.length} project{visibleProjects.length !== 1 ? "s" : ""} matched
@@ -163,6 +170,44 @@ export default function Home() {
           )}
         </div>
       </section>
+
+      {/* Tech Stack Matrix */}
+      <section className="mb-20">
+        <Eyebrow>Tech Stack</Eyebrow>
+        <h2 className="font-display font-semibold text-2xl text-text mb-2">
+          The stack, by proficiency
+        </h2>
+        <p className="text-text-muted leading-relaxed mb-6 max-w-2xl">
+          Dot fill indicates depth — core tools I work in daily, working
+          knowledge I apply regularly, and areas I&apos;m actively growing into.
+        </p>
+        <TechMatrix />
+      </section>
+
+      {/* Approach */}
+      <Reveal>
+        <section className="mb-4 max-w-3xl">
+          <Eyebrow>{approach.eyebrow}</Eyebrow>
+          <h2 className="font-display font-semibold text-2xl sm:text-3xl text-text mb-6 text-balance">
+            {approach.heading}
+          </h2>
+          <div className="flex flex-col gap-4 mb-6">
+            {approach.paragraphs.map((p, i) => (
+              <p key={i} className="text-sm sm:text-base text-text-muted leading-relaxed">
+                {p}
+              </p>
+            ))}
+          </div>
+          <div className="rounded-lg border border-signal-dim/40 bg-signal/5 p-5">
+            <p className="text-xs font-mono uppercase tracking-wide text-signal mb-2">
+              Looking ahead
+            </p>
+            <p className="text-sm text-text-muted leading-relaxed">
+              {approach.forwardNote}
+            </p>
+          </div>
+        </section>
+      </Reveal>
     </div>
   );
 }

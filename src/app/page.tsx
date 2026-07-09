@@ -12,6 +12,9 @@ import Magnetic from "@/components/Magnetic";
 import TiltCard from "@/components/TiltCard";
 import StatusTicker from "@/components/StatusTicker";
 import AmbientBackground from "@/components/AmbientBackground";
+import FloatingParticles from "@/components/FloatingParticles";
+import TypewriterHeadline from "@/components/TypewriterHeadline";
+import DrawnMark from "@/components/DrawnMark";
 import TechMatrix from "@/components/TechMatrix";
 import {
   person,
@@ -40,12 +43,19 @@ export default function Home() {
       {/* Hero */}
       <section className="relative mb-20 -mx-5 sm:-mx-8 lg:-mx-12 px-5 sm:px-8 lg:px-12 pt-4 pb-4">
         <AmbientBackground />
+        <FloatingParticles />
         <div className="relative">
-          <Eyebrow>{person.role} · Building at TCS</Eyebrow>
-          <h1 className="font-display font-semibold text-4xl sm:text-5xl lg:text-7xl leading-[1.05] tracking-tight text-balance mb-6 max-w-4xl">
-            <span className="text-text">Data infrastructure</span>{" "}
-            <span className="text-gradient">businesses can trust.</span>
-          </h1>
+          <div className="flex items-center gap-3 mb-5">
+            <DrawnMark className="h-9 w-9 shrink-0" />
+            <Eyebrow>{person.role} · Building at TCS</Eyebrow>
+          </div>
+          <TypewriterHeadline
+            segments={[
+              { text: "Data infrastructure" },
+              { text: "businesses can trust.", gradient: true },
+            ]}
+            className="font-display font-semibold text-4xl sm:text-5xl lg:text-7xl leading-[1.05] tracking-tight text-balance mb-6 max-w-4xl"
+          />
           <p className="text-base sm:text-lg text-text-muted max-w-2xl leading-relaxed mb-5">
             {person.subTagline}
           </p>

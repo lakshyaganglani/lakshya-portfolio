@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { person } from "@/data/profile";
 import StatusPill from "@/components/StatusPill";
 import Magnetic from "@/components/Magnetic";
+import CustomCursor from "@/components/CustomCursor";
 
 const NAV_ITEMS = [
   { href: "/", label: "Home", mono: "~/" },
@@ -21,6 +22,7 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen flex bg-bg">
+      <CustomCursor />
       {/* Desktop sidebar */}
       <aside
         className={`hidden md:flex flex-col shrink-0 border-r border-border bg-surface transition-[width] duration-300 ease-out ${

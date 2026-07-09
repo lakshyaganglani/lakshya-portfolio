@@ -1,17 +1,21 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Badge from "@/components/Badge";
+import CountUp from "@/components/CountUp";
 import type { Project } from "@/data/profile";
 
 export default function ProjectModal({
   project,
+  originRect,
   onClose,
 }: {
   project: Project;
+  originRect: DOMRect | null;
   onClose: () => void;
 }) {
   const closeRef = useRef<HTMLButtonElement>(null);
+  const [entered, setEntered] = useState(false);
 
   useEffect(() => {
     closeRef.current?.focus();
@@ -20,11 +24,33 @@ export default function ProjectModal({
     };
     document.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
+    // Trigger the "settle into place" animation on next frame
+    const raf = requestAnimationFrame(() => setEntered(true));
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
+      cancelAnimationFrame(raf);
     };
   }, [onClose]);
+
+  // Compute the initial transform so the modal appears to grow out of the
+  // card that was clicked, rather than just popping into the viewport center.
+  const initialStyle: React.CSSProperties = (() => {
+    if (!originRect || typeof window === "undefined") return {};
+    const viewportCenterX = window.innerWidth / 2;
+    const viewportCenterY = window.innerHeight / 2;
+    const originCenterX = originRect.left + originRect.width / 2;
+    const originCenterY = originRect.top + originRect.height / 2;
+    const dx = originCenterX - viewportCenterX;
+    const dy = originCenterY - viewportCenterY;
+    const scale = Math.min(originRect.width / 640, 0.6);
+    return {
+      transform: entered
+        ? "translate(0, 0) scale(1)"
+        : `translate(${dx}px, ${dy}px) scale(${scale})`,
+      opacity: entered ? 1 : 0,
+    };
+  })();
 
   return (
     <div
@@ -34,11 +60,16 @@ export default function ProjectModal({
       aria-labelledby="project-modal-title"
     >
       <div
-        className="absolute inset-0 bg-bg/80 backdrop-blur-sm animate-fade-up"
+        className={`absolute inset-0 bg-bg/80 backdrop-blur-sm transition-opacity duration-300 ${
+          entered ? "opacity-100" : "opacity-0"
+        }`}
         onClick={onClose}
         aria-hidden="true"
       />
-      <div className="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-lg border border-border bg-surface p-6 sm:p-8 animate-fade-up">
+      <div
+        className="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-lg border border-border bg-surface p-6 sm:p-8 transition-all duration-300 ease-out"
+        style={initialStyle}
+      >
         <button
           ref={closeRef}
           onClick={onClose}
@@ -80,7 +111,9 @@ export default function ProjectModal({
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-px rounded-md overflow-hidden border border-border bg-border">
             {project.impact.map((i) => (
               <div key={i.label} className="bg-surface-hi p-3">
-                <p className="font-display font-semibold text-lg text-signal">{i.metric}</p>
+                <p className="font-display font-semibold text-lg text-signal">
+                  <CountUp value={i.metric} />
+                </p>
                 <p className="text-[11px] text-text-muted leading-snug">{i.label}</p>
               </div>
             ))}

@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import Eyebrow from "@/components/Eyebrow";
 import Badge from "@/components/Badge";
+import Reveal from "@/components/Reveal";
 import { timeline, certifications, skillGroups } from "@/data/profile";
 
 export default function About() {
@@ -55,15 +56,15 @@ export default function About() {
       <div className="relative pl-8 mb-16">
         <div className="absolute left-[7px] top-2 bottom-2 w-px bg-border" aria-hidden="true" />
         <div className="flex flex-col gap-8">
-          {timeline.map((item) => {
+          {timeline.map((item, idx) => {
             const matches = activeTech ? item.tech.includes(activeTech) : true;
             return (
-              <div
-                key={item.id}
-                className={`relative transition-opacity duration-300 ${
-                  activeTech && !matches ? "opacity-30" : "opacity-100"
-                }`}
-              >
+              <Reveal key={item.id} delay={idx * 100}>
+                <div
+                  className={`relative transition-opacity duration-300 ${
+                    activeTech && !matches ? "opacity-30" : "opacity-100"
+                  }`}
+                >
                 <span
                   className={`absolute -left-8 top-1.5 h-3.5 w-3.5 rounded-full border-2 ${
                     matches && activeTech
@@ -98,54 +99,59 @@ export default function About() {
                     </Badge>
                   ))}
                 </div>
-              </div>
+                </div>
+              </Reveal>
             );
           })}
         </div>
       </div>
 
       {/* Skills detail */}
-      <section className="mb-16">
-        <Eyebrow>Toolkit</Eyebrow>
-        <h2 className="font-display font-semibold text-2xl text-text mb-5">
-          Skills by category
-        </h2>
-        <div className="grid sm:grid-cols-2 gap-4">
-          {skillGroups.map((group) => (
-            <div key={group.group} className="rounded-lg border border-border bg-surface p-5">
-              <p className="font-display font-semibold text-sm text-text mb-3">
-                {group.group}
-              </p>
-              <div className="flex flex-wrap gap-1.5">
-                {group.skills.map((s) => (
-                  <Badge key={s}>{s}</Badge>
-                ))}
+      <Reveal>
+        <section className="mb-16">
+          <Eyebrow>Toolkit</Eyebrow>
+          <h2 className="font-display font-semibold text-2xl text-text mb-5">
+            Skills by category
+          </h2>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {skillGroups.map((group) => (
+              <div key={group.group} className="rounded-lg border border-border bg-surface p-5">
+                <p className="font-display font-semibold text-sm text-text mb-3">
+                  {group.group}
+                </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {group.skills.map((s) => (
+                    <Badge key={s}>{s}</Badge>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
+      </Reveal>
 
       {/* Certifications */}
-      <section>
-        <Eyebrow>Coursework & Certifications</Eyebrow>
-        <h2 className="font-display font-semibold text-2xl text-text mb-5">
-          Continued learning
-        </h2>
-        <div className="flex flex-col gap-2">
-          {certifications.map((c) => (
-            <div
-              key={c.name}
-              className="flex items-center justify-between rounded-md border border-border bg-surface px-4 py-3"
-            >
-              <span className="text-sm text-text">{c.name}</span>
-              <span className="text-xs font-mono text-text-faint shrink-0 ml-3">
-                {c.issuer}
-              </span>
-            </div>
-          ))}
-        </div>
-      </section>
+      <Reveal>
+        <section>
+          <Eyebrow>Coursework & Certifications</Eyebrow>
+          <h2 className="font-display font-semibold text-2xl text-text mb-5">
+            Continued learning
+          </h2>
+          <div className="flex flex-col gap-2">
+            {certifications.map((c) => (
+              <div
+                key={c.name}
+                className="flex items-center justify-between rounded-md border border-border bg-surface px-4 py-3"
+              >
+                <span className="text-sm text-text">{c.name}</span>
+                <span className="text-xs font-mono text-text-faint shrink-0 ml-3">
+                  {c.issuer}
+                </span>
+              </div>
+            ))}
+          </div>
+        </section>
+      </Reveal>
     </div>
   );
 }

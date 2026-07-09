@@ -1,5 +1,9 @@
+"use client";
+
 import Eyebrow from "@/components/Eyebrow";
 import ContactForm from "@/components/ContactForm";
+import Reveal from "@/components/Reveal";
+import TiltCard from "@/components/TiltCard";
 import { person } from "@/data/profile";
 
 export default function Contact() {
@@ -16,67 +20,75 @@ export default function Contact() {
       </p>
 
       <div className="grid md:grid-cols-2 gap-10">
-        <div>
+        <Reveal>
           <ContactForm />
-        </div>
+        </Reveal>
 
-        <div className="flex flex-col gap-3">
-          <a
-            href={person.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-between rounded-lg border border-border bg-surface p-5 hover:border-signal-dim transition-colors group"
-          >
-            <div>
-              <p className="font-display font-semibold text-text mb-1 group-hover:text-signal transition-colors">
-                LinkedIn
+        <Reveal delay={120}>
+          <div className="flex flex-col gap-3">
+            <TiltCard maxTilt={3}>
+              <a
+                href={person.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between rounded-lg border border-border bg-surface p-5 hover:border-signal-dim transition-colors group"
+              >
+                <div>
+                  <p className="font-display font-semibold text-text mb-1 group-hover:text-signal transition-colors">
+                    LinkedIn
+                  </p>
+                  <p className="text-xs font-mono text-text-faint">
+                    linkedin.com/in/lakshya-ganglani
+                  </p>
+                </div>
+                <ArrowIcon />
+              </a>
+            </TiltCard>
+
+            <TiltCard maxTilt={3}>
+              <a
+                href={person.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between rounded-lg border border-border bg-surface p-5 hover:border-signal-dim transition-colors group"
+              >
+                <div>
+                  <p className="font-display font-semibold text-text mb-1 group-hover:text-signal transition-colors">
+                    GitHub
+                  </p>
+                  <p className="text-xs font-mono text-text-faint">
+                    view repositories & code
+                  </p>
+                </div>
+                <ArrowIcon />
+              </a>
+            </TiltCard>
+
+            <TiltCard maxTilt={3}>
+              <a
+                href={`mailto:${person.email}`}
+                className="flex items-center justify-between rounded-lg border border-border bg-surface p-5 hover:border-signal-dim transition-colors group"
+              >
+                <div>
+                  <p className="font-display font-semibold text-text mb-1 group-hover:text-signal transition-colors">
+                    Email
+                  </p>
+                  <p className="text-xs font-mono text-text-faint">{person.email}</p>
+                </div>
+                <ArrowIcon />
+              </a>
+            </TiltCard>
+
+            <div className="rounded-lg border border-border bg-surface-hi p-5 mt-2">
+              <p className="text-xs font-mono uppercase tracking-wide text-text-faint mb-2">
+                Response time
               </p>
-              <p className="text-xs font-mono text-text-faint">
-                linkedin.com/in/lakshya-ganglani
+              <p className="text-sm text-text-muted">
+                Typically replies within 1–2 business days.
               </p>
             </div>
-            <ArrowIcon />
-          </a>
-
-          <a
-            href={person.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-between rounded-lg border border-border bg-surface p-5 hover:border-signal-dim transition-colors group"
-          >
-            <div>
-              <p className="font-display font-semibold text-text mb-1 group-hover:text-signal transition-colors">
-                GitHub
-              </p>
-              <p className="text-xs font-mono text-text-faint">
-                view repositories & code
-              </p>
-            </div>
-            <ArrowIcon />
-          </a>
-
-          <a
-            href={`mailto:${person.email}`}
-            className="flex items-center justify-between rounded-lg border border-border bg-surface p-5 hover:border-signal-dim transition-colors group"
-          >
-            <div>
-              <p className="font-display font-semibold text-text mb-1 group-hover:text-signal transition-colors">
-                Email
-              </p>
-              <p className="text-xs font-mono text-text-faint">{person.email}</p>
-            </div>
-            <ArrowIcon />
-          </a>
-
-          <div className="rounded-lg border border-border bg-surface-hi p-5 mt-2">
-            <p className="text-xs font-mono uppercase tracking-wide text-text-faint mb-2">
-              Response time
-            </p>
-            <p className="text-sm text-text-muted">
-              Typically replies within 1–2 business days.
-            </p>
           </div>
-        </div>
+        </Reveal>
       </div>
     </div>
   );

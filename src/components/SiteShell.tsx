@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { person } from "@/data/profile";
 import StatusPill from "@/components/StatusPill";
+import Magnetic from "@/components/Magnetic";
 
 const NAV_ITEMS = [
   { href: "/", label: "Home", mono: "~/" },
@@ -76,6 +77,24 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
           {children}
         </div>
       </main>
+
+      {/* Ambient conversion CTA — hidden on the contact page itself */}
+      {pathname !== "/contact" && (
+        <div className="fixed bottom-5 right-5 z-40">
+          <Magnetic strength={0.15}>
+            <Link
+              href="/contact"
+              className="flex items-center gap-2 rounded-full bg-signal px-4 py-3 text-sm font-semibold text-bg shadow-lg shadow-signal/20 hover:bg-signal-dim transition-colors"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-bg opacity-50" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-bg" />
+              </span>
+              Available for work
+            </Link>
+          </Magnetic>
+        </div>
+      )}
     </div>
   );
 }
@@ -105,7 +124,8 @@ function SidebarContent({
         )}
       </Link>
 
-      <nav className="flex flex-col gap-1" aria-label="Primary">
+      <nav className="relative flex flex-col gap-1" aria-label="Primary">
+        <SlidingPill pathname={pathname} />
         {NAV_ITEMS.map((item) => {
           const active = pathname === item.href;
           return (
@@ -113,14 +133,15 @@ function SidebarContent({
               key={item.href}
               href={item.href}
               onClick={onNavigate}
-              className={`group flex items-center gap-3 rounded-md px-3 py-2.5 text-sm transition-colors ${
+              data-nav-item={item.href}
+              className={`group relative z-10 flex items-center gap-3 rounded-md px-3 py-2.5 text-sm transition-colors ${
                 active
-                  ? "bg-signal/10 text-signal"
+                  ? "text-signal"
                   : "text-text-muted hover:text-text hover:bg-surface-hi"
               }`}
             >
               <span
-                className={`h-1.5 w-1.5 rounded-full shrink-0 ${
+                className={`h-1.5 w-1.5 rounded-full shrink-0 transition-colors ${
                   active ? "bg-signal" : "bg-text-faint group-hover:bg-text-muted"
                 }`}
               />
@@ -139,6 +160,40 @@ function SidebarContent({
         {!collapsed && <StatusPill />}
       </div>
     </div>
+  );
+}
+
+function SlidingPill({ pathname }: { pathname: string }) {
+  const [rect, setRect] = useState<{ top: number; height: number } | null>(null);
+
+  useEffect(() => {
+    const raf = requestAnimationFrame(() => {
+      const active = document.querySelector<HTMLElement>(
+        `[data-nav-item="${pathname}"]`
+      );
+      const parent = active?.parentElement;
+      if (active && parent) {
+        const parentRect = parent.getBoundingClientRect();
+        const activeRect = active.getBoundingClientRect();
+        setRect({
+          top: activeRect.top - parentRect.top,
+          height: activeRect.height,
+        });
+      } else {
+        setRect(null);
+      }
+    });
+    return () => cancelAnimationFrame(raf);
+  }, [pathname]);
+
+  if (!rect) return null;
+
+  return (
+    <span
+      className="absolute left-0 right-0 rounded-md bg-signal/10 border border-signal-dim/40 transition-all duration-300 ease-out pointer-events-none"
+      style={{ top: rect.top, height: rect.height }}
+      aria-hidden="true"
+    />
   );
 }
 

@@ -26,6 +26,27 @@ export const approach = {
   ],
 };
 
+export const narrative = {
+  eyebrow: "The story so far",
+  acts: [
+    {
+      label: "01 — Origin",
+      heading: "Where it started: a CS degree and a pull toward systems that scale.",
+      body: "I graduated with a B.Tech in Computer Science from RGPV with an 8.9 GPA, but the real starting point was smaller than that — Microsoft's Introduction to Programming with Python course, and the realization that code could move real data, not just pass a test case. Cisco's networking and cybersecurity courses came next, and between the two I got interested in a specific question: not how to write a clever algorithm, but how to keep a system reliable when real volume and real stakes show up.",
+    },
+    {
+      label: "02 — Evolution",
+      heading: "Where it's been tested: TCS, production pipelines, and the gap between working and trustworthy.",
+      body: "That question became my actual job at TCS. Building ETL/ELT workflows that move hundreds of millions of records a year taught me the difference between a pipeline that runs and a pipeline people can depend on. Getting from 'it works on my machine' to a 99.5% daily success rate across 100+ Azure Data Factory pipelines meant taking monitoring, orchestration, and failure recovery as seriously as the transformation logic itself — and automating the repetitive 60% of the work so the remaining effort could go toward the parts that actually needed judgment.",
+    },
+    {
+      label: "03 — Vision",
+      heading: "Where it's going: from operating the pipeline to shaping what gets built on top of it.",
+      body: "Earning the Microsoft Fabric Data Engineer Associate certification and contributing to our team's migration to Fabric confirmed something for me: the infrastructure layer is where I want to keep growing, but I want to grow toward deciding what gets built on it, not just operating it. That's the deliberate move I'm making now — from data engineer to someone who understands both the pipeline and the product decisions built on top of it, with an eye on AI product management and, eventually, building something of my own.",
+    },
+  ],
+};
+
 export const vision = {
   eyebrow: "Looking ahead",
   heading: "Where I'm headed: from building the pipeline to shaping the product.",

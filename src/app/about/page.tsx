@@ -4,7 +4,7 @@ import { useState, useMemo } from "react";
 import Eyebrow from "@/components/Eyebrow";
 import Badge from "@/components/Badge";
 import Reveal from "@/components/Reveal";
-import { timeline, certifications, skillGroups } from "@/data/profile";
+import { timeline, certifications, skillGroups, narrative } from "@/data/profile";
 
 export default function About() {
   const allTech = useMemo(() => {
@@ -29,6 +29,30 @@ export default function About() {
         A record of what I&apos;ve built and where. Click a technology below to
         highlight every stop on the timeline where I used it.
       </p>
+
+      {/* Narrative arc: Origin / Evolution / Vision */}
+      <section className="mb-16">
+        <Eyebrow>{narrative.eyebrow}</Eyebrow>
+        <div className="flex flex-col gap-10">
+          {narrative.acts.map((act, i) => (
+            <Reveal key={act.label} delay={i * 100}>
+              <div className="grid sm:grid-cols-[110px_1fr] gap-2 sm:gap-6">
+                <p className="text-xs font-mono text-signal shrink-0 pt-1">
+                  {act.label}
+                </p>
+                <div>
+                  <h3 className="font-display font-semibold text-xl text-text mb-3 text-balance">
+                    {act.heading}
+                  </h3>
+                  <p className="text-sm text-text-muted leading-relaxed">
+                    {act.body}
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
 
       {/* Tech badge filter */}
       <div className="mb-12 rounded-lg border border-border bg-surface p-5">

@@ -7,6 +7,7 @@ import { person } from "@/data/profile";
 import StatusPill from "@/components/StatusPill";
 import Magnetic from "@/components/Magnetic";
 import CustomCursor from "@/components/CustomCursor";
+import NeuralBackground from "@/components/NeuralBackground";
 
 const NAV_ITEMS = [
   { href: "/", label: "Home", mono: "~/" },
@@ -21,11 +22,12 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   return (
-    <div className="min-h-screen flex bg-bg">
+    <div className="min-h-screen flex bg-bg relative">
+      <NeuralBackground />
       <CustomCursor />
       {/* Desktop sidebar */}
       <aside
-        className={`hidden md:flex flex-col shrink-0 border-r border-border bg-surface transition-[width] duration-300 ease-out ${
+        className={`relative z-10 hidden md:flex flex-col shrink-0 border-r border-border bg-surface/95 backdrop-blur-sm transition-[width] duration-300 ease-out ${
           collapsed ? "w-[76px]" : "w-[264px]"
         }`}
       >
@@ -74,7 +76,7 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
       )}
 
       {/* Main content */}
-      <main className="flex-1 min-w-0 pt-16 md:pt-0">
+      <main className="relative z-10 flex-1 min-w-0 pt-16 md:pt-0">
         <div className="mx-auto w-full max-w-6xl px-5 sm:px-8 lg:px-12 py-10 md:py-16">
           {children}
           <SignatureFooter />

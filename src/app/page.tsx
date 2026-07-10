@@ -17,6 +17,7 @@ import TypewriterHeadline from "@/components/TypewriterHeadline";
 import DrawnMark from "@/components/DrawnMark";
 import TechMatrix from "@/components/TechMatrix";
 import FieldNotes from "@/components/FieldNotes";
+import ProjectRecommender from "@/components/ProjectRecommender";
 import {
   person,
   stats,
@@ -181,6 +182,18 @@ export default function Home() {
             </p>
           )}
         </div>
+      </section>
+
+      {/* Smart project recommender */}
+      <section className="mb-20">
+        <Eyebrow>Find your fit</Eyebrow>
+        <h2 className="font-display font-semibold text-2xl text-text mb-2">
+          Not sure which project is relevant to you?
+        </h2>
+        <p className="text-text-muted leading-relaxed mb-6 max-w-2xl">
+          Tell it what you care about and get a ranked match.
+        </p>
+        <ProjectRecommender />
       </section>
 
       {/* Tech Stack Matrix */}

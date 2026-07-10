@@ -262,6 +262,68 @@ export const skillGroups: { group: string; skills: string[]; filters: FilterKey[
   },
 ];
 
+export type RecommenderPriority = {
+  key: string;
+  label: string;
+  description: string;
+  // Weighted match per project id — simple, transparent rule-based scoring,
+  // not a model. Higher score = stronger fit for this priority.
+  weights: Record<string, number>;
+};
+
+export const recommenderPriorities: RecommenderPriority[] = [
+  {
+    key: "reliability",
+    label: "Reliability at scale",
+    description: "Systems that stay up and recover gracefully under real load.",
+    weights: {
+      "adf-pipeline-platform": 3,
+      "recommendation-engine": 0,
+      "customer-analytics-dashboard": 0,
+    },
+  },
+  {
+    key: "cost-efficiency",
+    label: "Cost & effort reduction",
+    description: "Automating away manual, repetitive operational work.",
+    weights: {
+      "adf-pipeline-platform": 3,
+      "recommendation-engine": 0,
+      "customer-analytics-dashboard": 1,
+    },
+  },
+  {
+    key: "insight",
+    label: "Reporting & business insight",
+    description: "Turning raw data into decisions stakeholders can act on.",
+    weights: {
+      "adf-pipeline-platform": 1,
+      "recommendation-engine": 0,
+      "customer-analytics-dashboard": 3,
+    },
+  },
+  {
+    key: "ml-personalization",
+    label: "ML & personalization",
+    description: "Applying modeling techniques to surface relevant results.",
+    weights: {
+      "adf-pipeline-platform": 0,
+      "recommendation-engine": 3,
+      "customer-analytics-dashboard": 0,
+    },
+  },
+  {
+    key: "cloud-migration",
+    label: "Cloud platform migration",
+    description: "Moving workloads onto modern, scalable cloud architecture.",
+    weights: {
+      "adf-pipeline-platform": 3,
+      "recommendation-engine": 0,
+      "customer-analytics-dashboard": 0,
+    },
+  },
+];
+
 export type Project = {
   id: string;
   title: string;

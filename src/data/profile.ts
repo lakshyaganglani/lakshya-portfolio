@@ -52,6 +52,7 @@ export const vision = {
   heading: "Where I'm headed: from building the pipeline to shaping the product.",
   paragraphs: [
     "Reliable, well-governed data infrastructure is the layer every AI system eventually depends on — the unglamorous foundation underneath every model that ships. That foundation is where I've spent my career so far, and it's given me a grounded, first-hand view of what actually breaks when AI meets production.",
+    "That matters even more for generative AI specifically. A RAG pipeline or an LLM-powered product is only as good as the data it retrieves from — badly governed, poorly monitored data pipelines are exactly how generative systems end up confidently wrong. The instincts I've built around pipeline reliability translate directly into the question of how you'd actually make a GenAI system trustworthy in production, not just impressive in a demo.",
     "My next chapter is about moving from operating that foundation to shaping decisions on top of it — growing deliberately toward AI product management and technical leadership, where engineering judgment about scale, reliability, and data quality directly informs what gets built and why.",
     "Long-term, I want to lead from the front as AI reshapes how products get built — eventually building something of my own. I'm early in that journey and saying so plainly, not because the title exists yet, but because the direction is real and I'm building toward it deliberately, one system and one decision at a time.",
   ],
@@ -101,6 +102,14 @@ export const fieldNotes: FieldNote[] = [
     url: "https://arxiv.org/abs/1706.03762",
     note: "The Transformer paper — the architecture underpinning essentially every modern LLM.",
   },
+  {
+    title: "GPT-4 Technical Report",
+    source: "arXiv, 2023",
+    author: "OpenAI",
+    type: "paper",
+    url: "https://arxiv.org/abs/2303.08774",
+    note: "A look at scaling, alignment, and the infrastructure challenge behind a frontier generative AI model.",
+  },
 ];
 
 export type TechMatrixRow = {
@@ -138,11 +147,13 @@ export const techMatrix: TechMatrixRow[] = [
     ],
   },
   {
-    category: "ML / AI foundations",
+    category: "ML & Generative AI",
     tools: [
       { name: "Pandas", level: "working" },
       { name: "Scikit-Learn", level: "working" },
       { name: "NLTK / NLP", level: "learning" },
+      { name: "LLM/RAG fundamentals", level: "learning" },
+      { name: "Prompt engineering", level: "learning" },
     ],
   },
 ];

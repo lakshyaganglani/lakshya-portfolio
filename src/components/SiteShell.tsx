@@ -8,6 +8,7 @@ import StatusPill from "@/components/StatusPill";
 import Magnetic from "@/components/Magnetic";
 import CustomCursor from "@/components/CustomCursor";
 import NeuralBackground from "@/components/NeuralBackground";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const NAV_ITEMS = [
   { href: "/", label: "Home", mono: "~/" },
@@ -32,15 +33,18 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
         }`}
       >
         <SidebarContent collapsed={collapsed} pathname={pathname} onNavigate={() => {}} />
-        <button
-          onClick={() => setCollapsed((c) => !c)}
-          aria-label={collapsed ? "Expand navigation" : "Collapse navigation"}
-          aria-expanded={!collapsed}
-          className="m-3 flex items-center justify-center gap-2 rounded-md border border-border py-2 text-xs font-mono text-text-muted hover:text-signal hover:border-signal-dim transition-colors"
-        >
-          <ChevronIcon collapsed={collapsed} />
-          {!collapsed && <span>collapse</span>}
-        </button>
+        <div className={`flex gap-2 mx-3 mb-1 ${collapsed ? "flex-col items-center" : ""}`}>
+          <ThemeToggle className={collapsed ? "" : "shrink-0"} />
+          <button
+            onClick={() => setCollapsed((c) => !c)}
+            aria-label={collapsed ? "Expand navigation" : "Collapse navigation"}
+            aria-expanded={!collapsed}
+            className="flex-1 flex items-center justify-center gap-2 rounded-md border border-border py-2 text-xs font-mono text-text-muted hover:text-signal hover:border-signal-dim transition-colors"
+          >
+            <ChevronIcon collapsed={collapsed} />
+            {!collapsed && <span>collapse</span>}
+          </button>
+        </div>
       </aside>
 
       {/* Mobile top bar */}
@@ -49,19 +53,22 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
           {initials(person.name)}
           <span className="text-signal">.</span>
         </Link>
-        <button
-          onClick={() => setMobileOpen((o) => !o)}
-          aria-label={mobileOpen ? "Close menu" : "Open menu"}
-          aria-expanded={mobileOpen}
-          className="flex flex-col justify-center items-center w-10 h-10 gap-1.5"
-        >
-          <span
-            className={`block h-[1.5px] w-6 bg-text transition-transform ${mobileOpen ? "translate-y-[3px] rotate-45" : ""}`}
-          />
-          <span
-            className={`block h-[1.5px] w-6 bg-text transition-transform ${mobileOpen ? "-translate-y-[3px] -rotate-45" : ""}`}
-          />
-        </button>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <button
+            onClick={() => setMobileOpen((o) => !o)}
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
+            className="flex flex-col justify-center items-center w-10 h-10 gap-1.5"
+          >
+            <span
+              className={`block h-[1.5px] w-6 bg-text transition-transform ${mobileOpen ? "translate-y-[3px] rotate-45" : ""}`}
+            />
+            <span
+              className={`block h-[1.5px] w-6 bg-text transition-transform ${mobileOpen ? "-translate-y-[3px] -rotate-45" : ""}`}
+            />
+          </button>
+        </div>
       </div>
 
       {/* Mobile drawer */}

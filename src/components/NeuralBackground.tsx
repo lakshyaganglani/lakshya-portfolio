@@ -35,16 +35,37 @@ export default function NeuralBackground() {
     let mouseX = width / 2;
     let mouseY = height / 2;
     let paused = document.hidden;
+    let frameCount = 0;
+    let cachedSignalRgb = "125, 211, 192";
 
     const DENSITY = 12000; // px^2 per particle — lower = more particles
     const MAX_DIST = 140;
-    const SIGNAL_COLOR = "125, 211, 192"; // matches --color-signal in rgb
+
+    function getSignalRgb(): string {
+      // Read the live --color-signal value so particles match the active
+      // theme (light/dark) without needing a separate canvas re-init.
+      const hex = getComputedStyle(document.documentElement)
+        .getPropertyValue("--color-signal")
+        .trim();
+      const parsed = hexToRgb(hex);
+      return parsed ?? "125, 211, 192";
+    }
+
+    function hexToRgb(hex: string): string | null {
+      const match = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      if (!match) return null;
+      const r = parseInt(match[1], 16);
+      const g = parseInt(match[2], 16);
+      const b = parseInt(match[3], 16);
+      return `${r}, ${g}, ${b}`;
+    }
 
     function resize() {
       width = window.innerWidth;
       height = window.innerHeight;
       canvas!.width = width;
       canvas!.height = height;
+      cachedSignalRgb = getSignalRgb();
       const count = Math.min(90, Math.floor((width * height) / DENSITY));
       particles = Array.from({ length: count }).map(() => ({
         x: Math.random() * width,
@@ -59,6 +80,12 @@ export default function NeuralBackground() {
         raf = requestAnimationFrame(draw);
         return;
       }
+
+      frameCount += 1;
+      if (frameCount % 30 === 0) {
+        cachedSignalRgb = getSignalRgb();
+      }
+
       ctx.clearRect(0, 0, width, height);
 
       for (const p of particles) {
@@ -86,7 +113,7 @@ export default function NeuralBackground() {
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < MAX_DIST) {
             const opacity = (1 - dist / MAX_DIST) * 0.12;
-            ctx.strokeStyle = `rgba(${SIGNAL_COLOR}, ${opacity})`;
+            ctx.strokeStyle = `rgba(${cachedSignalRgb}, ${opacity})`;
             ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
@@ -97,7 +124,7 @@ export default function NeuralBackground() {
       }
 
       for (const p of particles) {
-        ctx.fillStyle = `rgba(${SIGNAL_COLOR}, 0.4)`;
+        ctx.fillStyle = `rgba(${cachedSignalRgb}, 0.4)`;
         ctx.beginPath();
         ctx.arc(p.x, p.y, 1.4, 0, Math.PI * 2);
         ctx.fill();

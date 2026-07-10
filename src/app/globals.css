@@ -1,18 +1,49 @@
 @import "tailwindcss";
 
+:root {
+  /* Dark theme (default) — "systems console" palette */
+  --raw-bg: #0b0e14;
+  --raw-surface: #141924;
+  --raw-surface-hi: #1a2130;
+  --raw-border: #262e3f;
+  --raw-text: #e8eaed;
+  --raw-text-muted: #8b93a3;
+  --raw-text-faint: #5b6472;
+  --raw-signal: #7dd3c0;
+  --raw-signal-dim: #4d8c7d;
+  --raw-warn: #f0b429;
+  --raw-danger: #e2725b;
+}
+
+:root.light {
+  /* Light theme — same "systems console" language, inverted for daylight use */
+  --raw-bg: #f4f6f8;
+  --raw-surface: #ffffff;
+  --raw-surface-hi: #eceff3;
+  --raw-border: #d8dee6;
+  --raw-text: #10141c;
+  --raw-text-muted: #4b5563;
+  --raw-text-faint: #8994a3;
+  --raw-signal: #0f9d82;
+  --raw-signal-dim: #0b7a65;
+  --raw-warn: #b8790a;
+  --raw-danger: #c2483a;
+}
+
 @theme {
-  /* Color tokens — "systems console" palette */
-  --color-bg: #0b0e14;
-  --color-surface: #141924;
-  --color-surface-hi: #1a2130;
-  --color-border: #262e3f;
-  --color-text: #e8eaed;
-  --color-text-muted: #8b93a3;
-  --color-text-faint: #5b6472;
-  --color-signal: #7dd3c0;
-  --color-signal-dim: #4d8c7d;
-  --color-warn: #f0b429;
-  --color-danger: #e2725b;
+  /* Color tokens reference the raw values above so utility classes update
+     live when the .light class toggles on :root — no rebuild required. */
+  --color-bg: var(--raw-bg);
+  --color-surface: var(--raw-surface);
+  --color-surface-hi: var(--raw-surface-hi);
+  --color-border: var(--raw-border);
+  --color-text: var(--raw-text);
+  --color-text-muted: var(--raw-text-muted);
+  --color-text-faint: var(--raw-text-faint);
+  --color-signal: var(--raw-signal);
+  --color-signal-dim: var(--raw-signal-dim);
+  --color-warn: var(--raw-warn);
+  --color-danger: var(--raw-danger);
 
   /* Type */
   --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
@@ -27,6 +58,10 @@
   --animate-glow: glow 4s ease-in-out infinite;
   --animate-grid-drift: grid-drift 40s linear infinite;
   --animate-gradient-shift: gradient-shift 8s ease infinite;
+}
+
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 @keyframes pulse-slow {

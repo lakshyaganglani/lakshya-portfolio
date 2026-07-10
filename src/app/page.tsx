@@ -16,12 +16,14 @@ import FloatingParticles from "@/components/FloatingParticles";
 import TypewriterHeadline from "@/components/TypewriterHeadline";
 import DrawnMark from "@/components/DrawnMark";
 import TechMatrix from "@/components/TechMatrix";
+import FieldNotes from "@/components/FieldNotes";
 import {
   person,
   stats,
   projects,
   skillGroups,
   approach,
+  vision,
   type FilterKey,
 } from "@/data/profile";
 
@@ -196,28 +198,51 @@ export default function Home() {
 
       {/* Approach */}
       <Reveal>
-        <section className="mb-4 max-w-3xl">
+        <section className="mb-20 max-w-3xl">
           <Eyebrow>{approach.eyebrow}</Eyebrow>
           <h2 className="font-display font-semibold text-2xl sm:text-3xl text-text mb-6 text-balance">
             {approach.heading}
           </h2>
-          <div className="flex flex-col gap-4 mb-6">
+          <div className="flex flex-col gap-4">
             {approach.paragraphs.map((p, i) => (
               <p key={i} className="text-sm sm:text-base text-text-muted leading-relaxed">
                 {p}
               </p>
             ))}
           </div>
-          <div className="rounded-lg border border-signal-dim/40 bg-signal/5 p-5">
-            <p className="text-xs font-mono uppercase tracking-wide text-signal mb-2">
-              Looking ahead
-            </p>
-            <p className="text-sm text-text-muted leading-relaxed">
-              {approach.forwardNote}
-            </p>
+        </section>
+      </Reveal>
+
+      {/* Vision — honest, forward-looking ambition, not a current title claim */}
+      <Reveal>
+        <section className="mb-20 max-w-3xl">
+          <Eyebrow>{vision.eyebrow}</Eyebrow>
+          <h2 className="font-display font-semibold text-2xl sm:text-3xl text-text mb-6 text-balance">
+            {vision.heading}
+          </h2>
+          <div className="flex flex-col gap-4">
+            {vision.paragraphs.map((p, i) => (
+              <p key={i} className="text-sm sm:text-base text-text-muted leading-relaxed">
+                {p}
+              </p>
+            ))}
           </div>
         </section>
       </Reveal>
+
+      {/* Field Notes — curated, real AI reading, not a live feed */}
+      <section className="mb-4">
+        <Eyebrow>Field Notes</Eyebrow>
+        <h2 className="font-display font-semibold text-2xl text-text mb-2">
+          What I&apos;m reading in AI
+        </h2>
+        <p className="text-text-muted leading-relaxed mb-6 max-w-2xl">
+          A hand-picked, occasionally updated set of newsletters and papers I
+          follow to stay current as the field moves — not a live feed, just
+          honest recommendations.
+        </p>
+        <FieldNotes />
+      </section>
     </div>
   );
 }

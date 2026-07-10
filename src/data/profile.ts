@@ -24,9 +24,63 @@ export const approach = {
     "That means treating pipelines like production systems, not scripts — monitored, dependency-aware, and built to fail loudly and recover fast rather than fail silently. A 99.5% daily success rate across 100+ pipelines isn't an accident; it's what happens when orchestration and monitoring are first-class citizens, not afterthoughts.",
     "As data platforms move toward lakehouse architectures like Microsoft Fabric, the same principle holds: scale should never come at the cost of trust. I build for both.",
   ],
-  forwardNote:
-    "Reliable, well-governed data infrastructure is the layer every AI system eventually depends on. I'm building toward that intersection — deepening into the ML and AI-platform side of data engineering, on the same foundation of pipelines people can trust.",
 };
+
+export const vision = {
+  eyebrow: "Looking ahead",
+  heading: "Where I'm headed: from building the pipeline to shaping the product.",
+  paragraphs: [
+    "Reliable, well-governed data infrastructure is the layer every AI system eventually depends on — the unglamorous foundation underneath every model that ships. That foundation is where I've spent my career so far, and it's given me a grounded, first-hand view of what actually breaks when AI meets production.",
+    "My next chapter is about moving from operating that foundation to shaping decisions on top of it — growing deliberately toward AI product management and technical leadership, where engineering judgment about scale, reliability, and data quality directly informs what gets built and why.",
+    "Long-term, I want to lead from the front as AI reshapes how products get built — eventually building something of my own. I'm early in that journey and saying so plainly, not because the title exists yet, but because the direction is real and I'm building toward it deliberately, one system and one decision at a time.",
+  ],
+};
+
+export type FieldNote = {
+  title: string;
+  source: string;
+  author: string;
+  type: "newsletter" | "paper";
+  url: string;
+  note: string;
+};
+
+// Curated, real, verifiable sources — not a live feed. Update periodically
+// by hand, or wire to a real API/RSS source later if a live feed is wanted.
+export const fieldNotes: FieldNote[] = [
+  {
+    title: "Import AI",
+    source: "Substack",
+    author: "Jack Clark",
+    type: "newsletter",
+    url: "https://importai.substack.com/",
+    note: "Weekly research analysis plus AI policy and compute-trend commentary, running since 2016.",
+  },
+  {
+    title: "The Batch",
+    source: "DeepLearning.AI",
+    author: "Andrew Ng",
+    type: "newsletter",
+    url: "https://www.deeplearning.ai/the-batch/",
+    note: "Weekly, measured framing on what the week's AI research and releases actually mean.",
+  },
+  {
+    title: "Latent Space",
+    source: "Substack",
+    author: "Swyx & Alessio Fanelli",
+    type: "newsletter",
+    url: "https://www.latent.space/",
+    note: "AI engineering as a discipline — evals, inference, and the production tradeoffs of building on LLMs.",
+  },
+  {
+    title: "Attention Is All You Need",
+    source: "arXiv, 2017",
+    author: "Vaswani et al.",
+    type: "paper",
+    url: "https://arxiv.org/abs/1706.03762",
+    note: "The Transformer paper — the architecture underpinning essentially every modern LLM.",
+  },
+];
 
 export type TechMatrixRow = {
   category: string;

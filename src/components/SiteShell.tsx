@@ -77,6 +77,7 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
       <main className="flex-1 min-w-0 pt-16 md:pt-0">
         <div className="mx-auto w-full max-w-6xl px-5 sm:px-8 lg:px-12 py-10 md:py-16">
           {children}
+          <SignatureFooter />
         </div>
       </main>
 
@@ -98,6 +99,29 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
         </div>
       )}
     </div>
+  );
+}
+
+function SignatureFooter() {
+  return (
+    <footer className="mt-24 pt-8 border-t border-border">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="flex items-center gap-2.5">
+          <span className="flex h-7 w-7 items-center justify-center rounded-md bg-signal/10 border border-signal-dim font-mono text-xs text-signal shrink-0">
+            LG
+          </span>
+          <p className="text-sm text-text-muted">
+            Made by{" "}
+            <span className="font-display font-semibold text-text">
+              Lakshya Ganglani
+            </span>
+          </p>
+        </div>
+        <p className="text-xs font-mono text-text-faint">
+          Built with Next.js & Tailwind · thanks for stopping by
+        </p>
+      </div>
+    </footer>
   );
 }
 
